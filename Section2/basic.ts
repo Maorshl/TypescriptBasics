@@ -1,15 +1,8 @@
-const combine = (num1: number | string, num2: number | string) => {
-  let result;
-  if (typeof num1 === "number" && typeof num2 === "number") {
-    result = num1 + num2;
-  } else {
-    result = num1.toString() + num2.toString();
-  }
-  return result;
-};
+function add(n1: number, n2: number) {
+  return n1 + n2;
+}
 
-const combinedAges = combine(30, 26);
-console.log(combinedAges);
-
-const combinedNames = combine("Max", "Anna");
-console.log(combinedNames);
+function printResult(n1: number, n2: number) {
+  console.log("Result is:" + (n1 + n2));
+}
+printResult(20, 5);
