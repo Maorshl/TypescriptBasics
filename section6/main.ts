@@ -1,10 +1,19 @@
-class Department {
+type Admin = {
   name: string;
+  privileges: string[];
+};
 
-  constructor(n: string) {
-    this.name = n;
-  }
-}
+type Employee = {
+  name: string;
+  startDate: Date;
+};
 
-const devDepartment = new Department("Dev");
-console.log(devDepartment);
+type ElevatedEmployee = Admin & Employee;
+
+const e1: ElevatedEmployee = {
+  name: "Max",
+  privileges: ["AddEmployees"],
+  startDate: new Date(),
+};
+
+console.log(e1);
