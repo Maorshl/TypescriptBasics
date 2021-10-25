@@ -6,6 +6,8 @@ interface Props {
   mainLoop: Looper;
   songName: SongName;
   icon: any;
+  setPlaying: Function;
+  playing: string[];
 }
 
 function LoopButton(props: Props) {
@@ -15,7 +17,19 @@ function LoopButton(props: Props) {
       className="loop-button"
       variant={isPressed ? "danger" : "success"}
       onClick={() => {
-        props.mainLoop.addLoop(props.songName);
+        // props.mainLoop.addLoop(props.songName);
+        if (!isPressed) {
+          props.setPlaying((prevState) => {
+            return [...prevState, props.songName];
+          });
+        } else {
+          props.setPlaying((prevState: string[]) => {
+            const newArray = prevState.filter(
+              (song: string) => song !== props.songName
+            );
+            return newArray;
+          });
+        }
         setIsPressed((prevState) => !prevState);
       }}
     >

@@ -36,10 +36,16 @@ var Looper = /** @class */ (function () {
         this.first = true;
     }
     Looper.prototype.stop = function () {
-        console.log("Stopped", this.active);
+        for (var _i = 0, _a = this.active; _i < _a.length; _i++) {
+            var current = _a[_i];
+            current.pause();
+        }
     };
     Looper.prototype.start = function () {
-        console.log("Playing: " + this.active);
+        for (var _i = 0, _a = this.active; _i < _a.length; _i++) {
+            var current = _a[_i];
+            current.play();
+        }
     };
     // the add loop method to add a sound to next loop or if it is already in the loop remove it.
     Looper.prototype.addLoop = function (song) {
@@ -81,6 +87,7 @@ var Looper = /** @class */ (function () {
             this.start();
             this.first = false; // sets first to false to know next time not to play immediately.
         }
+        return this.active;
     };
     // Remove loop method to remove a sound from active and stop and rewind it.
     Looper.prototype.removeLoop = function (song) {
@@ -93,7 +100,6 @@ var Looper = /** @class */ (function () {
         if (!this.active.length) {
             this.first = true;
         }
-        console.log(this.active);
     };
     return Looper;
 }());

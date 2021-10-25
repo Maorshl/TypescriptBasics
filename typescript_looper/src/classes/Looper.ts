@@ -63,11 +63,15 @@ export default class Looper {
   }
 
   stop() {
-    console.log(`Stopped`, this.active);
+    for (let current of this.active) {
+      current.pause();
+    }
   }
 
   start() {
-    console.log(`Playing: ${this.active}`);
+    for (let current of this.active) {
+      current.play();
+    }
   }
   // the add loop method to add a sound to next loop or if it is already in the loop remove it.
   addLoop(song: SongName) {
@@ -105,6 +109,7 @@ export default class Looper {
       this.start();
       this.first = false; // sets first to false to know next time not to play immediately.
     }
+    return this.active;
   }
 
   // Remove loop method to remove a sound from active and stop and rewind it.
@@ -118,6 +123,5 @@ export default class Looper {
     if (!this.active.length) {
       this.first = true;
     }
-    console.log(this.active);
   }
 }

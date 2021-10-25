@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../Style/App.css";
 // import { useState } from "react";
 import Looper, { SongName } from "../classes/Looper.js";
@@ -16,6 +16,7 @@ import synthesizer from "../Style/images/30-synthesizer.svg";
 import drum from "../Style/images/22-drum.svg";
 import Title from "./Title";
 import StartStop from "./StartStop";
+
 // import StartStop from "./StartStop";
 // import Title from "./Title";
 
@@ -36,16 +37,33 @@ const songsNames: SongNames = [
 ];
 
 const App: React.FC = () => {
+  const [playing, setPlaying] = useState([]);
   const MainLoop: Looper = new Looper();
+
   return (
     <div className="App">
       <Title />
+      {playing.length ? (
+        <>
+          <p>Now Playing: </p>
+          {playing.map((songName: string, i: number) => (
+            <span key={`playing-${i}`}>
+              {i > 0 ? ", " : ""}
+              {songName[1]}
+            </span>
+          ))}
+        </>
+      ) : (
+        ""
+      )}
       <Container>
         <Row lg={3} md={3}>
           {songsNames.map((song: Song, i: number) => {
             return (
               <Col key={`looper-button-${i}`}>
                 <LoopButton
+                  playing={playing}
+                  setPlaying={setPlaying}
                   mainLoop={MainLoop}
                   songName={song.name}
                   icon={song.icon}
