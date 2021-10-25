@@ -14,6 +14,8 @@ import drumSet from "../Style/images/42-drum set.svg";
 import bagpipes from "../Style/images/46- bagpipes.svg";
 import synthesizer from "../Style/images/30-synthesizer.svg";
 import drum from "../Style/images/22-drum.svg";
+import Title from "./Title";
+import StartStop from "./StartStop";
 // import StartStop from "./StartStop";
 // import Title from "./Title";
 
@@ -34,10 +36,10 @@ const songsNames: SongNames = [
 ];
 
 const App: React.FC = () => {
-  const MainLoop = new Looper();
+  const MainLoop: Looper = new Looper();
   return (
     <div className="App">
-      <h1>Hello world!</h1>
+      <Title />
       <Container>
         <Row lg={3} md={3}>
           {songsNames.map((song: Song, i: number) => {
@@ -53,6 +55,7 @@ const App: React.FC = () => {
           })}
         </Row>
       </Container>
+      <StartStop mainLoop={MainLoop} />
     </div>
   );
 };
