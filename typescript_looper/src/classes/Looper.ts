@@ -31,14 +31,23 @@ type Playlist = {
   _9: HTMLAudioElement;
 };
 
-type SongName = "_1" | "_2" | "_3" | "_4" | "_5" | "_6" | "_7" | "_8" | "_9";
+export type SongName =
+  | "_1"
+  | "_2"
+  | "_3"
+  | "_4"
+  | "_5"
+  | "_6"
+  | "_7"
+  | "_8"
+  | "_9";
 
 export default class Looper {
   active: HTMLAudioElement[];
   playlist: Playlist;
   first: boolean;
   constructor() {
-    (this.playlist = {
+    this.playlist = {
       _1,
       _2,
       _3,
@@ -48,33 +57,17 @@ export default class Looper {
       _7,
       _8,
       _9,
-    }),
-      (this.active = [_1]),
-      (this.first = true);
+    };
+    this.active = [];
+    this.first = true;
   }
 
-  async stop() {
-    for (let current of this.active) {
-      current.pause();
-      current.currentTime = 0;
-    }
+  stop() {
+    console.log(`Stopped`, this.active);
   }
 
-  async start() {
-    for (let current of this.active) {
-      const isPlaying =
-        current.currentTime > 0 &&
-        !current.paused &&
-        !current.ended &&
-        current.readyState > current.HAVE_CURRENT_DATA;
-      // because there is sometimes an error that the pause() was interrupted by the play() I tried to make sure the sound is paused.
-      // It is sometimes still show that error and I know its because the pause() and play() are asynchronous but I didn't manage to completely solve it.
-      if (!isPlaying) {
-        await current.play().catch((error) => {
-          console.error(error);
-        });
-      }
-    }
+  start() {
+    console.log(`Playing: ${this.active}`);
   }
   // the add loop method to add a sound to next loop or if it is already in the loop remove it.
   addLoop(song: SongName) {
@@ -125,5 +118,6 @@ export default class Looper {
     if (!this.active.length) {
       this.first = true;
     }
+    console.log(this.active);
   }
 }
